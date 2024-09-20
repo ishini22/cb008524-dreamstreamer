@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import DreamStreamer from './components/DreamStreamer/DreamStreamer';
 import AdminDashboard from './pages/AdminDashboard'; // You'll create
 
+
 // Import fetchAuthSession from @aws-amplify/auth
 import { fetchAuthSession } from '@aws-amplify/auth';
 
