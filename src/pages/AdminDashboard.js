@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
-
-
+import { HomeIcon, MagnifyingGlassIcon, MusicalNoteIcon, ChartBarSquareIcon, UserIcon } from '@heroicons/react/24/outline'; // Corrected import paths for Heroicons v2
 
 const AdminDashboard = ({ signOut }) => {
+  const [loading, setLoading] = useState(false);
   const [albums, setAlbums] = useState([]);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const [isEditing, setIsEditing] = useState(false); // For edit mode
@@ -268,140 +267,254 @@ const AdminDashboard = ({ signOut }) => {
         alert('Report has been sent to the admin email.');
     }
   };
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Correct useState
+
   return (
-    <div className="w-full h-screen bg-gray-900 text-white flex">
+    <div className="flex h-screen bg-slate-600 text-white">
+
       {/* Sidebar */}
-      <div className={`fixed top-0 left-0 h-full w-64 bg-gray-800 transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "-translate-x-64"} z-10`}>
-        <div className="p-4">
-          <h2 className="text-2xl font-bold mb-8">Menu</h2>
-          <ul className="space-y-4">
-            <li>
-              <a href="#dashboard" className="hover:text-gray-400 transition duration-200">Dashboard</a>
-            </li>
-            <li>
-              <a href="#upload-album" className="hover:text-gray-400 transition duration-200">Upload Album</a>
-            </li>
-            <li>
-              <a href="#manage-albums" className="hover:text-gray-400 transition duration-200">Manage Albums</a>
-            </li>
-          </ul>
-        </div>
+      <aside className="w-1/5 bg-slate-800 p-6 flex flex-col justify-between">
+        <div>
+        <div className="flex items-center mb-6">
+        {/* Adding an image above the title */}
+       <img
+         src="https://images.squarespace-cdn.com/content/v1/5a5d02d4b07869b960fa1da0/1516558077227-YFIILSIBQNQJB4RZMGUP/GIAM_Icon_AcademyOfMusic_RGB.png"  
+        alt="Admin Dashboard Logo"  
+        className="w-12 h-12 mr-6"  
+           />
+      <h2 className="text-xl font-bold">Admin Dashboard</h2>
       </div>
-
-      {/* Main content area */}
-      <div className="w-full h-full flex flex-col ml-64">
-        {/* Header */}
-        <header className="flex justify-between p-4 bg-gray-800">
-          <div className="flex items-center">
-            {/* Hamburger Menu Button */}
-            <button
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="text-white focus:outline-none lg:hidden"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-              </svg>
-            </button>
-            <h1 className="text-2xl font-bold ml-4">Admin Dashboard</h1>
-          </div>
-          <button
-            onClick={signOut}
-            className="py-2 px-4 bg-red-500 text-white rounded hover:bg-red-600 transition duration-200"
-          >
-            Sign Out
+      <nav>
+  <ul className="space-y-4">
+    <li className="flex items-center">
+      <HomeIcon className="h-6 w-6 mr-2" /> {/* Icon for Home */}
+      <a
+        href="/"
+        className="hover:text-gray-300 focus:text-gray-300 text-lg focus:outline-none focus:ring-2 focus:ring-purple-500 rounded transition duration-200"
+        aria-label="Home"
+      >
+        Home
+      </a>
+    </li>
+    <li className="flex items-center">
+      <MagnifyingGlassIcon className="h-6 w-6 mr-2" /> {/* Icon for Explore */}
+      <a
+        href="/explore"
+        className="hover:text-gray-300 focus:text-gray-300 text-lg focus:outline-none focus:ring-2 focus:ring-purple-500 rounded transition duration-200"
+        aria-label="Explore"
+      >
+        Explore
+      </a>
+    </li>
+    <li className="flex items-center">
+      <MusicalNoteIcon className="h-6 w-6 mr-2" /> {/* Icon for Update Albums */}
+      <a
+        href="/update-albums"
+        className="hover:text-gray-300 focus:text-gray-300 text-lg focus:outline-none focus:ring-2 focus:ring-purple-500 rounded transition duration-200"
+        aria-label="Update Albums"
+      >
+        Update Albums
+      </a>
+    </li>
+    <li className="flex items-center">
+      <ChartBarSquareIcon className="h-6 w-6 mr-2" /> {/* Icon for Report */}
+      <a
+        href="/report"
+        className="hover:text-gray-300 focus:text-gray-300 text-lg focus:outline-none focus:ring-2 focus:ring-purple-500 rounded transition duration-200"
+        aria-label="Report"
+      >
+        Reports
+      </a>
+    </li>
+    <li className="flex items-center">
+      <UserIcon className="h-6 w-6 mr-2" /> {/* Icon for Profile */}
+      <a
+        href="/profile"
+        className="hover:text-gray-300 focus:text-gray-300 text-lg focus:outline-none focus:ring-2 focus:ring-purple-500 rounded transition duration-200"
+        aria-label="Profile"
+      >
+        Profile
+      </a>
+     </li>
+      </ul>
+    </nav>
+    </div>
+        <button
+          onClick={signOut}
+            className="mt-auto bg-red-500 text-white font-semibold py-2 px-6 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300 transition duration-200 ease-in-out"
+           aria-label="Sign Out"
+        >
+              Sign Out
           </button>
-        </header>
 
-        <button onClick={requestAnalyticsReport} className="py-2 px-4 bg-blue-500 rounded hover:bg-blue-600 m-4">
-          Get Analytics Report
-        </button>
+      </aside>
+
+      {/* Main Content */}
+      <main className="w-4/5 p-6 flex flex-col space-y-6">
+       {/* Header */}
+<header className="flex flex-col items-start bg-gray-800 p-6 rounded-lg shadow-md">
+  <h1 className="text-3xl font-bold text-indigo-400 mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
+    Dream Streamer Admin Dashboard
+  </h1>
+  
+  {/* Filters */}
+  <div className="flex flex-wrap space-x-4">
+    {["Genre", "Album Name", "Artists", "Track Name"].map((placeholder, index) => (
+      <input
+        key={index}
+        type="text"
+        placeholder={`Filter by ${placeholder}`}
+        className="p-3 bg-gray-700 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-150 w-48 mb-2"
+        value={filter[placeholder.toLowerCase().replace(" ", "")]}
+        onChange={(e) =>
+          setFilter({ ...filter, [placeholder.toLowerCase().replace(" ", "")]: e.target.value })
+        }
+      />
+    ))}
+  </div>
+</header>
+
+
+
+
+          {/* Manage Albums Section */}
+        <div className="bg-gray-900 p-6 rounded-lg shadow-lg ">
+        <h2 className="text-2xl font-bold text-indigo-400 mb-6">Manage Albums</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filterAlbums().map((album) => (
+              <div key={album.albumId} onClick={() => handleAlbumClick(album)} className="cursor-pointer shadow-md">
+                <img
+                  src={album.albumArtUrl}
+                  alt={album.albumName}
+                  className="w-full h-40 object-cover rounded-lg mb-2 hover:opacity-80 transition duration-200 hover:opacity-80"
+                />
+                <div className="p-4">
+          <h3 className="text-lg font-semibold text-center text-white">{album.albumName}</h3>
+          <p className="text-center text-gray-400">Play Count: {album.playCount || 0}</p>
+          <p className="text-center text-gray-400">Last Played Track: {album.lastPlayedTrack || "N/A"}</p>
+        </div>
+
+              </div>
+            ))}
+          </div>
+
 
         {/* Dashboard Stats */}
-        <div className="p-6 flex justify-between">
-          <div className="bg-gray-800 p-4 rounded-lg shadow-lg w-1/4 text-center">
+        <div className="grid grid-cols-2 gap-6">
+          <div className="bg-gray-800 p-4 rounded-lg text-center shadow-lg">
             <h3 className="text-xl font-bold">Total Albums</h3>
             <p className="text-2xl">{stats.totalAlbums}</p>
           </div>
-          <div className="bg-gray-800 p-4 rounded-lg shadow-lg w-1/4 text-center">
+          <div className="bg-gray-800 p-4 rounded-lg text-center shadow-lg">
             <h3 className="text-xl font-bold">Total Tracks</h3>
             <p className="text-2xl">{stats.totalTracks}</p>
           </div>
         </div>
 
-        {/* Filters */}
-        <div className="p-6 flex justify-between">
-          <input
-            type="text"
-            name="genre"
-            placeholder="Filter by Genre"
-            className="p-2 bg-gray-800 rounded mr-4"
-            value={filter.genre}
-            onChange={(e) => setFilter({ ...filter, genre: e.target.value })}
-          />
-          <input
-            type="text"
-            name="albumName"
-            placeholder="Filter by Album Name"
-            className="p-2 bg-gray-800 rounded mr-4"
-            value={filter.albumName}
-            onChange={(e) => setFilter({ ...filter, albumName: e.target.value })}
-          />
-          <input
-            type="text"
-            name="artists"
-            placeholder="Filter by Artists"
-            className="p-2 bg-gray-800 rounded mr-4"
-            value={filter.artists}
-            onChange={(e) => setFilter({ ...filter, artists: e.target.value })}
-          />
-          <input
-            type="text"
-            name="trackName"
-            placeholder="Filter by Track Name"
-            className="p-2 bg-gray-800 rounded"
-            value={filter.trackName}
-            onChange={(e) => setFilter({ ...filter, trackName: e.target.value })}
-          />
-        </div>
+       
 
         {/* File Upload and Album Metadata Section */}
-        <div className="p-6 bg-gray-900">
-          <h2 className="text-xl font-bold mb-4">{isEditing ? 'Edit Album' : 'Upload New Album'}</h2>
+        <div className="bg-gray-900 p-6 rounded-lg">
+          <h2 className="text-xl font-bold mb-4">{isEditing ? "Edit Album" : "Upload New Album"}</h2>
           <div className="flex flex-col space-y-4">
-            {/* Album form inputs */}
-            {/* ... (rest of the form inputs remain unchanged) */}
+            {["albumName", "genre", "albumYear", "artists", "bandComposition"].map((field) => (
+              <input
+                key={field}
+                type={field === "albumYear" ? "number" : "text"}
+                name={field}
+                placeholder={field
+                  .replace(/([A-Z])/g, " $1")
+                  .replace(/^./, (str) => str.toUpperCase())}
+                className="p-2 bg-gray-800 rounded"
+                onChange={handleInputChange}
+                value={albumDetails[field]}
+              />
+            ))}
+            <input
+              type="file"
+              name="albumArt"
+              accept="image/*"
+              className="p-2 bg-gray-800 rounded"
+              onChange={handleFileChange}
+            />
+            <input
+              type="file"
+              name="tracks"
+              accept="audio/*"
+              multiple
+              className="p-2 bg-gray-800 rounded"
+              onChange={handleFileChange}
+            />
+            <button
+              onClick={isEditing ? handleUpdateAlbum : handleFileUpload}
+              className="py-2 px-4 bg-green-500 rounded hover:bg-green-600 transition duration-200"
+              aria-label={isEditing ? "Update Album" : "Upload Album"}
+            >
+              {isEditing ? "Update Album" : "Upload Album"}
+            </button>
+            {uploadStatus && <p>{uploadStatus}</p>}
           </div>
         </div>
 
-        {/* Manage Albums Section */}
-        <div className="p-6 bg-gray-900 flex-grow">
-          <h2 className="text-xl font-bold mb-4">Manage Albums</h2>
+        
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filterAlbums().map((album) => (
-              <div key={album.albumId} onClick={() => handleAlbumClick(album)} className="cursor-pointer">
-                <img
-                  src={album.albumArtUrl}
-                  alt={album.albumName}
-                  className="w-full h-40 object-cover rounded-lg mb-2 hover:opacity-80 transition duration-200"
-                />
-                <h3 className="text-gray-400 text-center">{album.albumName}</h3>
-                <p className="text-gray-400 text-center">Play Count: {album.playCount || 0}</p>
-                <p className="text-gray-400 text-center">Last Played Track: {album.lastPlayedTrack || 'N/A'}</p>
-              </div>
-            ))}
-          </div>
-
-          {selectedAlbum && (
+          {/* Show Album Details When Clicked */}
+          {selectedAlbum && !loading && (
             <div className="mt-8 bg-gray-800 p-6 rounded-lg">
-              {/* Album details remain unchanged */}
+              <h3 className="text-xl font-bold mb-4">{selectedAlbum.albumName}</h3>
+              <p>Genre: {selectedAlbum.genre}</p>
+              <p>Year: {selectedAlbum.albumYear}</p>
+              <p>Artists: {selectedAlbum.artists.join(", ")}</p>
+              <img
+                src={selectedAlbum.albumArtUrl}
+                alt={selectedAlbum.albumName}
+                className="w-40 h-40 mt-4 rounded-lg"
+              />
+
+              {/* Tracklist */}
+              <div className="mt-4">
+                <h4 className="text-lg font-bold mb-2">Tracks</h4>
+                <ul className="space-y-2">
+                  {selectedAlbum.tracks.map((track, index) => (
+                    <li key={index} className="bg-gray-700 p-3 rounded-lg">
+                      <p className="font-semibold">{track.trackName}</p>
+                      <p className="text-gray-400">Label: {track.trackLabel}</p>
+                      <audio controls className="w-full mt-2">
+                        <source src={track.trackUrl} type="audio/mpeg" />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Delete Album Button */}
+              <button
+                onClick={handleDeleteSelectedAlbum}
+                className="mt-4 py-2 px-4 bg-red-500 text-white rounded hover:bg-red-600 transition duration-200"
+                aria-label="Delete Album"
+              >
+                {loading ? "Deleting..." : "Delete Album"}
+              </button>
             </div>
           )}
+
+          {/* Loading Placeholder */}
+          {loading && <p>Loading album details...</p>}
         </div>
-      </div>
+
+        <button
+            onClick={requestAnalyticsReport}
+            className="py-2 px-4 bg-blue-500 rounded hover:bg-blue-600 transition duration-200"
+            disabled={loading}
+            aria-label="Get Analytics Report"
+          >
+            {loading ? "Loading..." : "Get Analytics Report"}
+          </button>
+      </main>
     </div>
   );
+  
 };
+
 
 export default AdminDashboard;
