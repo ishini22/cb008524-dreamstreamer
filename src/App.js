@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Amplify } from 'aws-amplify';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import { Authenticator, withAuthenticator } from '@aws-amplify/ui-react';
+import { Authenticator, View, Image } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
 import Home from './pages/Home';
 import DreamStreamer from './components/DreamStreamer/DreamStreamer';
-import AdminDashboard from './pages/AdminDashboard'; // You'll create
-
+import AdminDashboard from './pages/AdminDashboard';
+import './App.css';
 
 // Import fetchAuthSession from @aws-amplify/auth
 import { fetchAuthSession } from '@aws-amplify/auth';
@@ -60,11 +60,27 @@ function App({ signOut }) {
 function AppWithAuth() {
   return (
     <Router>
-      <Authenticator>
+      <Authenticator
+        components={{
+          Header() {
+            return (
+              <View textAlign="center" padding="large">
+                <Image
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaMh4okd5Guv91k6UBPy1Pj17DIyUFtTOCWQ&s" // Replace with your logo URL
+                  alt="DreamStreamer Logo"
+                  className="auth-logo"
+                  style={{ width: '150px', marginBottom: '20px' }}
+                />
+                
+              </View>
+            );
+          }
+        }}
+      >
         {({ signOut }) => <App signOut={signOut} />}
       </Authenticator>
     </Router>
   );
 }
 
-export default withAuthenticator(AppWithAuth);
+export default AppWithAuth;

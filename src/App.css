@@ -1,3 +1,109 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+[data-amplify-authenticator] [data-amplify-router] {
+    background-color: #1e1e2f !important; /* Darker background for contrast */
+    border-radius: 20px !important;
+    padding: 30px;
+    box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.4); /* Deeper shadow for immersive feel */
+}
+
+.amplify-tabs__list--equal {
+    border: 0 !important;
+    margin-bottom: 20px; /* Increased spacing */
+}
+
+.amplify-tabs__item--active {
+    border: 0 !important;
+    background: linear-gradient(to right, #7b2ff7, #f107a3); /* Neon gradient */
+    color: #fff; /* White text for contrast */
+    border-radius: 15px 15px 0 0 !important; /* Rounded corners */
+}
+
+.amplify-tabs__item {
+    border: 0 !important;
+    padding: 12px 24px;
+    color: #bbb; /* Softer grey for unselected tabs */
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.amplify-tabs__item:hover {
+    background-color: #33334d; /* Dark hover for better focus */
+    color: #fff;
+}
+
+.amplify-input {
+    background-color: #29293d; /* Dark input background */
+    border-radius: 12px;
+    border: 1px solid #555; /* Softer border */
+    padding: 14px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #fff; /* White text */
+    transition: border-color 0.4s ease;
+}
+
+.amplify-input:focus {
+    border-color: #7b2ff7; /* Neon purple focus */
+    box-shadow: 0px 0px 12px rgba(123, 47, 247, 0.6); /* Glow on focus */
+}
+
+.amplify-button--primary {
+    background: linear-gradient(to right, #7b2ff7, #f107a3); /* Neon gradient for buttons */
+    border-radius: 30px; /* Fully rounded */
+    padding: 12px 24px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    color: #fff; /* White text */
+}
+
+.amplify-button--primary:hover {
+    background-color: #f107a3 !important; /* Neon pink hover effect */
+    transform: translateY(-4px); /* Button lift on hover */
+}
+
+.amplify-button--primary:active {
+    transform: translateY(0); /* Reset on click */
+}
+
+.amplify-button--secondary {
+    background-color: #444456;
+    color: #bbb;
+    border-radius: 30px;
+    padding: 12px 24px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.amplify-button--secondary:hover {
+    background-color: #555;
+}
+
+.amplify-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+}
+
+.amplify-header {
+    font-size: 28px;
+    color: #fff; /* White for contrast against dark background */
+    margin-bottom: 20px;
+    font-weight: bold;
+    letter-spacing: 1px; /* Slight letter spacing for modern look */
+}
+
+.amplify-footer {
+    margin-top: 25px;
+    font-size: 14px;
+    color: #888; /* Soft grey footer */
+}
+
+.auth-logo {
+    max-width: 160px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    object-fit: contain;
+}
