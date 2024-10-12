@@ -277,14 +277,14 @@ const AdminDashboard = ({ signOut }) => {
       <aside className="w-1/5 bg-slate-800 p-6 flex flex-col justify-between shadow-lg">
         <div>
           {/* Sidebar header with logo and title */}
-          <div className="flex items-center mb-8">
+          {/*<div className="flex items-center mb-8">
             <img
               src="https://images.squarespace-cdn.com/content/v1/5a5d02d4b07869b960fa1da0/1516558077227-YFIILSIBQNQJB4RZMGUP/GIAM_Icon_AcademyOfMusic_RGB.png"
               alt="Admin Dashboard Logo"
               className="w-12 h-12 mr-4"
             />
             <h2 className="text-2xl font-bold text-white">Admin Dashboard</h2>
-          </div>
+          </div>*/}
   
           {/* Navigation */}
           <nav>

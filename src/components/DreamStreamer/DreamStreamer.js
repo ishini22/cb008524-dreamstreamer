@@ -214,8 +214,7 @@ const handlePurchase = (album) => {
               {[
                 { name: 'Home', href: '#homenav', icon: <HomeIcon className="h-6 w-6 text-indigo-400" /> },
                 { name: 'Explore', href: '#mangealbumsnav', icon: <MagnifyingGlassIcon className="h-6 w-6 text-green-400" /> },
-                { name: 'Update Albums', href: '#updatealbums', icon: <MusicalNoteIcon className="h-6 w-6 text-pink-400" /> },
-                { name: 'Reports', href: '#reportnav', icon: <ChartBarSquareIcon className="h-6 w-6 text-blue-400" /> },
+                
                 { name: 'Profile', href: '/profile', icon: <UserIcon className="h-6 w-6 text-yellow-400" /> },
               ].map((item) => (
                 <li key={item.name}>
@@ -271,7 +270,7 @@ const handlePurchase = (album) => {
             <span className="sr-only">Open user menu</span>
             <img
               className="h-8 w-8 rounded-full hover:opacity-80 transition duration-200"
-              src="https://static.vecteezy.com/system/resources/previews/020/429/953/non_2x/admin-icon-vector.jpg"
+              src="https://as2.ftcdn.net/v2/jpg/04/81/24/71/1000_F_481247187_JGpveNYPJDt5oCQM1LT5qqGurGwSCgdf.jpg"
               alt="User profile"
             />
           </Menu.Button>
